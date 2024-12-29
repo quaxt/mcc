@@ -1,5 +1,8 @@
 package com.quaxt;
 
+import com.quaxt.asm.Codegen;
+import com.quaxt.asm.ProgramAsm;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,12 +43,14 @@ public class Mcc {
         if (mode == Mode.LEX) {
             return;
         }
-        Parser.parseProgram(l);
+        Program program = Parser.parseProgram(l);
         if (!l.isEmpty()) {
             throw new IllegalArgumentException("Unexpected token " + l.getFirst());
         }
         if (mode == Mode.PARSE) {
             return;
         }
+
+        ProgramAsm programAsm = Codegen.codeGenProgram(program);
     }
 }

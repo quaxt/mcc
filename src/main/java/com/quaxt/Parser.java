@@ -69,8 +69,6 @@ public class Parser {
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(parseProgram(Lexer.lex(Files.readString(Paths.get("/home/mreilly/wa/writing-a-c-compiler-tests/tests/chapter_1/invalid_parse/end_before_expr.c")))));
-    }
+
 
 }

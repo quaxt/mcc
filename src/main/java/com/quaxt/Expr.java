@@ -1,7 +1,5 @@
 package com.quaxt;
 
-sealed interface Expr extends Node {
+sealed public interface Expr extends Node permits Int {
 }
 
-record Int(int i) implements Expr {
-}
