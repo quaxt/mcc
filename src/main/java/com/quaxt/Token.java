@@ -2,24 +2,16 @@ package com.quaxt;
 
 import java.util.EnumMap;
 
-public class Token {
-    String value = null;
-    TokenType type = null;
+public record Token(TokenType type, String value) {
     static EnumMap<TokenType, Token> fixed = new EnumMap<>(TokenType.class);
 
     static {
         for (TokenType t:TokenType.values()){
             if (!t.hasValue()){
                 fixed.put(t, new Token(t, null));
-
             }
         }
 
-    }
-
-    private Token(TokenType tokenType, String value) {
-        this.type = tokenType;
-        this.value = value;
     }
 
     public static Token of(TokenType tokenType) {
@@ -32,6 +24,13 @@ public class Token {
     }
 
     public static Token of(TokenType tokenType, String value) {
+        if (tokenType == TokenType.IDENTIFIER) {
+            switch (value) {
+                case "return": return fixed.get(TokenType.RETURN);
+                case "int": return fixed.get(TokenType.INT);
+                case "void": return fixed.get(TokenType.VOID);
+            }
+        }
         return new Token(tokenType, value);
     }
 

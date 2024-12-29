@@ -36,6 +36,6 @@ public class Mcc {
         }
         String srcFile = args.getFirst();
         System.out.println("mode=" + mode + "\nemitAssembly=" + emitAssembly + "\nsrcFile=" + srcFile);
-        List<Token> l = new Lexer().lex(Files.readString(Path.of(srcFile)));
+        List<Token> l = Lexer.lex(Files.readString(Path.of(srcFile)));
     }
 }

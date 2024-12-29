@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class Lexer {
     static Pattern WHITESPACE = Pattern.compile("\\s+");
 
-    public List<Token> lex(String src) {
+    public static List<Token> lex(String src) {
         TokenType[] tokenTypes = TokenType.values();
         Matcher matcher = TokenType.IDENTIFIER.regex.matcher(src);
         List<Token> tokens = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Lexer {
                 matcher.region(end, src.length());
                 i = end;
                 if (i == src.length()) {
-                    break outer;
+                    break;
                 }
             }
             for (TokenType tokenType : tokenTypes) {
@@ -32,17 +32,17 @@ public class Lexer {
                 if (matcher.lookingAt()) {
                     int start = matcher.start();
                     int end = matcher.end();
-                    if (tokenType.hasValue()) {
-                        tokens.add(Token.of(tokenType, src.substring(start, end)));
-                    } else {
-                        tokens.add(Token.of(tokenType));
+                    if (!tokenType.isComment()){
+                        if (tokenType.hasValue()) {
+                            tokens.add(Token.of(tokenType, src.substring(start, end)));
+                        } else {
+                            tokens.add(Token.of(tokenType));
+                        }
                     }
+
                     i = end;
                     continue outer;
-
                 }
-
-
             }
             throw new IllegalArgumentException("can't handle token at " + src.substring(i));
         }
@@ -50,8 +50,9 @@ public class Lexer {
     }
 
     public static void main(String[] args) throws IOException {
-        Lexer lexer = new Lexer();
-        List<Token> l = lexer.lex(Files.readString(Path.of("/home/mreilly/wa/writing-a-c-compiler-tests/tests/chapter_1/invalid_lex/invalid_identifier.c")));
+
+        List<Token> l = lex(Files.readString(Path.of(
+                "/home/mreilly/wa/writing-a-c-compiler-tests/tests/chapter_1/valid/multi_digit.c")));
         System.out.println(l);
     }
 
