@@ -14,9 +14,9 @@ public record Token(TokenType type, String value) {
 
     }
 
-    static final Token RETURN = fixed.get(TokenType.RETURN);
-    static final Token INT = fixed.get(TokenType.INT);
-    static final Token VOID = fixed.get(TokenType.VOID);
+    public static final Token RETURN = fixed.get(TokenType.RETURN);
+    public static final Token INT = fixed.get(TokenType.INT);
+    public static final Token VOID = fixed.get(TokenType.VOID);
     public static final Token SEMICOLON = fixed.get(TokenType.SEMICOLON);
     public static final Token OPEN_PAREN = fixed.get(TokenType.OPEN_PAREN);
     public static final Token CLOSE_PAREN = fixed.get(TokenType.CLOSE_PAREN);

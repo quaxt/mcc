@@ -1,18 +1,17 @@
-package com.quaxt;
+package com.quaxt.parser;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+import com.quaxt.Token;
+import com.quaxt.TokenType;
 import java.util.List;
 
 public class Parser {
 
-    private static List<Token> expect(Token expected, List<Token> tokens) {
+    private static void expect(Token expected, List<Token> tokens) {
         Token token = tokens.removeFirst();
         if (expected != token) {
             throw new IllegalArgumentException("Expected " + expected + ", got " + token);
         }
-        return tokens;
     }
 
     static Node parseStatement(List<Token> tokens) {
@@ -63,12 +62,5 @@ public class Parser {
         }
         return new Int(Integer.parseInt(token.value()));
     }
-
-
-    static Node parse(List<Token> tokens) {
-        return null;
-    }
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.quaxt.asm;
 
 import com.quaxt.*;
+import com.quaxt.parser.*;
 
 import java.io.IOException;
 import java.nio.file.Files;

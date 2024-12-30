@@ -2,6 +2,8 @@ package com.quaxt;
 
 import com.quaxt.asm.Codegen;
 import com.quaxt.asm.ProgramAsm;
+import com.quaxt.parser.Parser;
+import com.quaxt.parser.Program;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -32,7 +34,6 @@ public class Mcc {
         ArrayList<String> args = Arrays.stream(args0)
                 .collect(Collectors.toCollection(ArrayList::new));
         Mode mode = Mode.ASSEMBLE;
-        boolean emitAssembly = false;
         for (int i = args.size() - 1; i >= 0; i--) {
             Mode newMode = switch (args.get(i)) {
                 case "--lex" -> Mode.LEX;
@@ -47,8 +48,8 @@ public class Mcc {
             }
         }
         Path srcFile = Path.of(args.getFirst());
-        String bareFileName = removeEnding(srcFile.getFileName().toString(), ".c");
-        Path intermediateFile = srcFile.resolveSibling(bareFileName+".i");
+        String bareFileName = removeEnding(srcFile.getFileName().toString());
+        Path intermediateFile = srcFile.resolveSibling(bareFileName + ".i");
 
         int preprocessExitCode = preprocess(srcFile, intermediateFile);
         if (preprocessExitCode != 0) {
@@ -77,7 +78,7 @@ public class Mcc {
             pw.flush();
         }
 
-        if (mode == Mode.COMPILE){
+        if (mode == Mode.COMPILE) {
             return;
         }
         int exitCode = assemble(asmFile, intermediateFile.resolveSibling(bareFileName));
@@ -85,7 +86,8 @@ public class Mcc {
         System.exit(exitCode);
     }
 
-    private static String removeEnding(String fileName, String ending) {
+    private static String removeEnding(String fileName) {
+        String ending = ".c";
         if (fileName.endsWith(ending)) {
             return fileName.substring(0, fileName.length() - ending.length());
         }

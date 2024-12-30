@@ -1,8 +1,5 @@
 package com.quaxt;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,12 +45,4 @@ public class Lexer {
         }
         return tokens;
     }
-
-    public static void main(String[] args) throws IOException {
-
-        List<Token> l = lex(Files.readString(Path.of(
-                "/home/mreilly/wa/writing-a-c-compiler-tests/tests/chapter_1/valid/multi_digit.c")));
-        System.out.println(l);
-    }
-
 }
