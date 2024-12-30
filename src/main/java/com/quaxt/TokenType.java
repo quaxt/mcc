@@ -7,7 +7,7 @@ public enum TokenType {
     OPEN_PAREN("\\("), CLOSE_PAREN("\\)"),
     OPEN_BRACE("\\{"), CLOSE_BRACE("\\}"), NUMERIC("[0-9]+\\b"), SEMICOLON(";"), SINGLE_LINE_COMMENT("//.*"),
     MULTILINE_COMMENT(Pattern.compile("/\\*.*\\*/", Pattern.DOTALL)),
-    INT("int"),RETURN("return"),VOID("void");
+    INT("int"),RETURN("return"),VOID("void"),DECREMENT("--"),MINUS("-"),NEGATE("~");
 
     Pattern regex;
 

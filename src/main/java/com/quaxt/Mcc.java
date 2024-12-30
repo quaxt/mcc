@@ -41,12 +41,7 @@ public class Mcc {
                 case "-S" -> Mode.COMPILE;
                 default -> null;
             };
-            if (newMode == null) {
-                if ("-S".equals(args.get(i))) {
-                    emitAssembly = true;
-                    args.remove(i);
-                }
-            } else {
+            if (newMode != null) {
                 mode = newMode;
                 args.remove(i);
             }
