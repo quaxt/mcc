@@ -4,6 +4,8 @@ import com.quaxt.mcc.asm.Codegen;
 import com.quaxt.mcc.asm.ProgramAsm;
 import com.quaxt.mcc.parser.Parser;
 import com.quaxt.mcc.parser.Program;
+import com.quaxt.mcc.tacky.IrGen;
+import com.quaxt.mcc.tacky.ProgramIr;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class Mcc {
 
-    enum Mode {LEX, PARSE, CODEGEN, COMPILE, ASSEMBLE}
+    enum Mode {LEX, PARSE, CODEGEN, COMPILE, TACKY, ASSEMBLE}
 
     public static int preprocess(Path cFile, Path iFile) throws IOException, InterruptedException {
         ProcessBuilder pb =
@@ -39,6 +41,7 @@ public class Mcc {
                 case "--lex" -> Mode.LEX;
                 case "--parse" -> Mode.PARSE;
                 case "--codegen" -> Mode.CODEGEN;
+                case "--tacky" -> Mode.TACKY;
                 case "-S" -> Mode.COMPILE;
                 default -> null;
             };
@@ -68,6 +71,10 @@ public class Mcc {
             return;
         }
 
+        ProgramIr programIr = IrGen.programIr(program);
+        if (mode == Mode.TACKY) {
+            return;
+        }
         ProgramAsm programAsm = Codegen.codeGenProgram(program);
         if (mode == Mode.CODEGEN) {
             return;

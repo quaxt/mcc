@@ -1,6 +1,7 @@
 package com.quaxt.mcc.parser;
 
 
+import com.quaxt.mcc.Op;
 import com.quaxt.mcc.Token;
 import com.quaxt.mcc.TokenType;
 
@@ -62,9 +63,9 @@ public class Parser {
         if (TokenType.NUMERIC == token.type()) {
             return new Int(Integer.parseInt(token.value()));
         } else if (TokenType.NEGATE == token.type()) {
-            return new Negate(parseExpr(tokens));
+            return new UnaryOp(Op.NEGATE, parseExpr(tokens));
         } else if (TokenType.COMPLIMENT == token.type()) {
-            return new Complement(parseExpr(tokens));
+            return new UnaryOp(Op.COMPLEMENT, parseExpr(tokens));
         } else if (TokenType.OPEN_PAREN == token.type()) {
             Exp r = parseExpr(tokens);
             expect(Token.CLOSE_PAREN, tokens);

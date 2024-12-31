@@ -1,5 +1,6 @@
 package com.quaxt.mcc.parser;
 
-sealed public interface UnaryOp extends Exp permits Complement, Negate {
-}
+import com.quaxt.mcc.Op;
 
+public record UnaryOp(Op op, Exp exp) implements Exp {
+}
