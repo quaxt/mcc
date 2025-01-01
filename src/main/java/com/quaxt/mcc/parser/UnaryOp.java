@@ -1,6 +1,6 @@
 package com.quaxt.mcc.parser;
 
-import com.quaxt.mcc.Op;
+import com.quaxt.mcc.UnaryOperator;
 
-public record UnaryOp(Op op, Exp exp) implements Exp {
+public record UnaryOp(UnaryOperator op, Exp exp) implements Exp {
 }

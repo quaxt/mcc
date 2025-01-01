@@ -1,5 +1,5 @@
 package com.quaxt.mcc;
 
-public enum Op {
+public enum UnaryOperator {
     NOT, NEG
 }

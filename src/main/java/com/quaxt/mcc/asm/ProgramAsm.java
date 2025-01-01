@@ -1,6 +1,6 @@
 package com.quaxt.mcc.asm;
 
-import com.quaxt.mcc.Op;
+import com.quaxt.mcc.UnaryOperator;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -38,7 +38,7 @@ public record ProgramAsm(FunctionAsm functionAsm) {
                     printIndent(out, "popq\t%rbp");
                     yield "ret";
                 }
-                case Unary(Op op, Operand operand) -> op.toString().toLowerCase() + "l\t" + formatOperand(operand);
+                case Unary(UnaryOperator op, Operand operand) -> op.toString().toLowerCase() + "l\t" + formatOperand(operand);
             };
             printIndent(out, s);
         }

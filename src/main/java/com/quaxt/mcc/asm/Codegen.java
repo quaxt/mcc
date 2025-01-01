@@ -1,6 +1,6 @@
 package com.quaxt.mcc.asm;
 
-import com.quaxt.mcc.Op;
+import com.quaxt.mcc.UnaryOperator;
 import com.quaxt.mcc.tacky.*;
 
 import java.util.*;
@@ -21,7 +21,7 @@ public class Codegen {
                 case AllocateStack _, Nullary _ -> oldInst;
                 case Mov(Operand src, Operand dst) ->
                         new Mov(dePseudo(src, varTable, offset), dePseudo(dst, varTable, offset));
-                case Unary(Op op, Operand operand) -> new Unary(op, dePseudo(operand, varTable, offset));
+                case Unary(UnaryOperator op, Operand operand) -> new Unary(op, dePseudo(operand, varTable, offset));
             };
             instructions.set(i, newInst);
         }
@@ -61,7 +61,7 @@ public class Codegen {
                     instructionAsms.add(new Mov(src, Reg.EAX));
                     instructionAsms.add(RET);
                 }
-                case UnaryIr(Op op, ValIr src, ValIr dstIr) -> {
+                case UnaryIr(UnaryOperator op, ValIr src, ValIr dstIr) -> {
                     Operand dst = toOperand(dstIr);
                     instructionAsms.add(new Mov(toOperand(src), dst));
                     instructionAsms.add(new Unary(op, dst));

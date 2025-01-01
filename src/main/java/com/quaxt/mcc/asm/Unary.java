@@ -1,6 +1,6 @@
 package com.quaxt.mcc.asm;
 
-import com.quaxt.mcc.Op;
+import com.quaxt.mcc.UnaryOperator;
 
-public record Unary(Op op, Operand operand) implements Instruction {
+public record Unary(UnaryOperator op, Operand operand) implements Instruction {
 }

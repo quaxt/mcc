@@ -45,6 +45,8 @@ public class IrGen {
                 return dst;
 
             }
+            default:
+                throw new IllegalStateException("Unexpected value: " + exp);
         }
     }
 

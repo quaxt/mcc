@@ -7,9 +7,9 @@ public enum TokenType {
     OPEN_PAREN("\\("), CLOSE_PAREN("\\)"),
     OPEN_BRACE("\\{"), CLOSE_BRACE("\\}"), NUMERIC("[0-9]+\\b"), SEMICOLON(";"), SINGLE_LINE_COMMENT("//.*"),
     MULTILINE_COMMENT(Pattern.compile("/\\*.*\\*/", Pattern.DOTALL)),
-    INT("int"), RETURN("return"), VOID("void"), DECREMENT("--"),INCREMENT("\\+\\+"), NEGATE("-"), COMPLIMENT("~"),
+    INT("int"), RETURN("return"), VOID("void"), DECREMENT("--"), INCREMENT("\\+\\+"), MINUS("-"), COMPLIMENT("~"),
     PLUS("\\+"),
-    MULTIPLY("\\*"),DIVIDE("/"),REMAINDER("%");
+    MULTIPLY("\\*"), DIVIDE("/"), REMAINDER("%");
 
     Pattern regex;
 
@@ -29,5 +29,12 @@ public enum TokenType {
 
     public boolean isComment() {
         return this == SINGLE_LINE_COMMENT || this == MULTILINE_COMMENT;
+    }
+
+    public boolean isBinaryOperator() {
+        return switch (this) {
+            case PLUS, MINUS, MULTIPLY, DIVIDE, REMAINDER -> true;
+            default -> false;
+        };
     }
 }
