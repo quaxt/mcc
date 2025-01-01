@@ -8,7 +8,6 @@ public record ProgramAsm(FunctionAsm functionAsm) {
         String name = functionAsm.name();
         out.println("                .text");
         out.println("                .globl	" + name);
-        //   out.println("                .type	main, @function");
         out.println(name + ":");
         List<Instruction> instructions = functionAsm.instructions();
 
@@ -16,7 +15,6 @@ public record ProgramAsm(FunctionAsm functionAsm) {
             instruction.emitAsm(out);
         }
 
-        //  out.println("	.size	main, .-main");
         out.println("                .ident	\"GCC: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\"");
         out.println("                .section	.note.GNU-stack,\"\",@progbits");
 
